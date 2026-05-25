@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>36÷4 해결 방법 탐구 자료</title>
+  <style>
+    :root {
+      --blue: #1686c1;
+      --blue-dark: #0d5f8d;
+      --blue-light: #e7f5ff;
+      --line-blue: #5ba9d6;
+      --tan: #e0bf8b;
+      --green: #2fa96e;
+      --green-light: #cceee0;
+      --ink: #0b0b0b;
+      --shadow: 0 12px 28px rgba(15, 85, 130, 0.15);
+      --relation-blank-w: clamp(82px, 10vw, 128px);
+      --relation-blank-h: clamp(70px, 8.6vw, 102px);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12px 12px, rgba(22,134,193,0.10) 2px, transparent 2px),
+        linear-gradient(180deg, #e9f7ff 0%, #ffffff 62%);
+      background-size: 20px 20px, 100% 100%;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .page {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .title-bar {
+      background: var(--blue);
+      color: #fff;
+      border: 4px solid var(--blue-dark);
+      border-radius: 18px;
+      padding: 18px 24px;
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 900;
+      line-height: 1.15;
+      box-shadow: var(--shadow);
+      letter-spacing: -0.04em;
+    }
+
+    .panel {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.97);
+      border: 4px solid var(--line-blue);
+      border-radius: 12px;
+      padding: clamp(20px, 4vw, 42px);
+      box-shadow: var(--shadow);
+    }
+
+    .problem-card {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      background: var(--blue-light);
+      border: 3px solid #b8d9ee;
+      border-radius: 18px;
+      padding: 18px 22px;
+      margin-bottom: 26px;
+    }
+
+    .problem-icon {
+      flex: 0 0 auto;
+      width: 68px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #fff;
+      border: 4px solid #b8d9ee;
+      font-size: 38px;
+    }
+
+    .problem-text {
+      font-size: clamp(24px, 3.2vw, 42px);
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .section {
+      position: relative;
+      margin: 36px 0 46px;
+      padding-left: 54px;
+    }
+
+    .section:last-child { margin-bottom: 12px; }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #60b5e3, #0d71a9);
+      transform: rotate(45deg);
+      box-shadow: 0 0 0 7px rgba(96,181,227,0.22);
+    }
+
+    .section-title {
+      font-size: clamp(26px, 4vw, 48px);
+      line-height: 1.35;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      margin-bottom: 22px;
+    }
+
+    .division-display {
+      width: min(720px, 100%);
+      margin: 24px auto;
+      padding: 22px 26px;
+      border: 4px solid #b8d9ee;
+      border-radius: 18px;
+      background: #eaf6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(14px, 2vw, 24px);
+      font-size: clamp(54px, 10vw, 112px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .relation-board {
+      width: min(900px, 100%);
+      margin: 24px auto 12px;
+      padding: clamp(18px, 3vw, 30px);
+      border: 4px solid #b8d9ee;
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .relation-equation {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) var(--relation-blank-w) minmax(150px, 1fr);
+      align-items: center;
+      column-gap: clamp(12px, 2vw, 24px);
+      font-size: clamp(42px, 8vw, 86px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .relation-equation .prefix,
+    .relation-equation .suffix {
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(10px, 1.6vw, 18px);
+      white-space: nowrap;
+    }
+
+    .relation-equation .prefix { justify-self: end; }
+    .relation-equation .suffix { justify-self: start; }
+
+    .connector-row {
+      width: 100%;
+      height: clamp(82px, 10vw, 112px);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) var(--relation-blank-w) minmax(150px, 1fr);
+      column-gap: clamp(12px, 2vw, 24px);
+      margin: -2px 0;
+    }
+
+    .arrow-up {
+      grid-column: 2;
+      justify-self: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .arrow-head {
+      width: 0;
+      height: 0;
+      border-left: clamp(16px, 2.2vw, 26px) solid transparent;
+      border-right: clamp(16px, 2.2vw, 26px) solid transparent;
+      border-bottom: clamp(24px, 3vw, 34px) solid #000;
+      margin-bottom: -2px;
+    }
+
+    .arrow-line {
+      width: clamp(5px, .8vw, 8px);
+      flex: 1;
+      background: #000;
+      min-height: 42px;
+    }
+
+    .blank {
+      width: clamp(78px, 11vw, 126px);
+      height: clamp(66px, 9vw, 96px);
+      border: 6px solid var(--tan);
+      border-radius: 18px;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(30px, 5vw, 54px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--ink);
+      text-align: center;
+      outline: none;
+      font-family: inherit;
+      box-shadow: 0 3px 0 rgba(0,0,0,.03) inset;
+      transition: transform .15s ease, border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+    }
+
+    .blank.narrow { width: clamp(72px, 8vw, 108px); }
+    .blank.wide { width: clamp(96px, 11vw, 136px); }
+
+    .linked-blank {
+      width: var(--relation-blank-w);
+      height: var(--relation-blank-h);
+      border-color: var(--green);
+      box-shadow: 0 0 0 12px var(--green-light), 0 3px 0 rgba(0,0,0,.03) inset;
+      font-size: clamp(36px, 7vw, 74px);
+    }
+
+    .blank:focus {
+      border-color: var(--blue);
+      background: #f2fbff;
+      transform: translateY(-2px);
+    }
+
+    .linked-blank:focus {
+      border-color: var(--green);
+      background: #f5fff9;
+    }
+
+    .blank.correct {
+      border-color: var(--green);
+      background: #f5fff9;
+      box-shadow: 0 0 0 8px var(--green-light), 0 3px 0 rgba(0,0,0,.03) inset;
+    }
+
+    .linked-blank.correct {
+      box-shadow: 0 0 0 12px var(--green-light), 0 3px 0 rgba(0,0,0,.03) inset;
+    }
+
+    .feedback-area {
+      min-height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -4px;
+    }
+
+    .feedback {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border: 4px solid var(--green);
+      border-radius: 999px;
+      background: #f0fff7;
+      color: #13824f;
+      font-size: clamp(20px, 3vw, 34px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(.94);
+      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+    }
+
+    .feedback::before {
+      content: "✓";
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      display: inline-grid;
+      place-items: center;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .feedback.show {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .relation-caption {
+      text-align: center;
+      margin-top: 18px;
+      font-size: clamp(18px, 2.2vw, 28px);
+      font-weight: 800;
+      color: #24516b;
+      letter-spacing: -0.04em;
+    }
+
+    .answer-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 2vw, 22px);
+      flex-wrap: wrap;
+      margin: 24px auto;
+      font-size: clamp(38px, 7vw, 72px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .unit {
+      font-size: clamp(34px, 6vw, 62px);
+      font-weight: 900;
+      margin-left: -8px;
+    }
+
+    @media (max-width: 920px) {
+      body { padding: 14px; }
+      .section { padding-left: 42px; }
+      .section::before { width: 20px; height: 20px; }
+      .problem-card { align-items: flex-start; }
+      .problem-icon { width: 56px; height: 56px; font-size: 30px; }
+      .relation-equation,
+      .connector-row {
+        grid-template-columns: minmax(116px, 1fr) var(--relation-blank-w) minmax(90px, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .panel { padding: 18px 14px; }
+      .problem-card { flex-direction: column; }
+      .division-display { padding: 18px 12px; }
+      .relation-board { padding: 18px 10px; }
+      .relation-equation,
+      .connector-row {
+        grid-template-columns: minmax(86px, 1fr) var(--relation-blank-w) minmax(64px, 1fr);
+      }
+      .blank {
+        width: 74px;
+        height: 64px;
+        border-width: 5px;
+      }
+      .blank.wide { width: 90px; }
+      .blank.narrow { width: 70px; }
+      .linked-blank {
+        width: var(--relation-blank-w);
+        height: var(--relation-blank-h);
+      }
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page { width: 100%; }
+      .panel, .title-bar, .problem-card, .division-display, .relation-board { box-shadow: none; }
+      .panel { border-width: 2px; }
+      .title-bar { font-size: 32px; padding: 12px 16px; }
+      .section-title { font-size: 28px; }
+      .problem-text { font-size: 24px; }
+      .division-display { font-size: 64px; }
+      .relation-equation { font-size: 48px; }
+      .blank { color: transparent; }
+      .feedback-area { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="title-bar">36÷4의 해결 방법을 탐구해봅시다.</header>
+
+    <section class="panel" aria-label="36 나누기 4 탐구 활동지">
+      <div class="problem-card">
+        <div class="problem-icon" aria-hidden="true">🏐</div>
+        <div class="problem-text">배구공 36개를 4개씩 묶어서 나누려고 합니다. 모두 몇 묶음이 되는지 구해 봅시다.</div>
+      </div>
+
+      <section class="section">
+        <div class="section-title">배구공 36개를 4개씩 묶으면 몇 묶음이 되는지 구하는 식을 써 보세요.</div>
+        <div class="division-display" aria-label="나눗셈식 입력">
+          <input id="divisionTotal" class="blank wide check-input" inputmode="numeric" maxlength="2" data-answer="36" aria-label="전체 배구공 수 36" />
+          <span>÷</span>
+          <input id="divisionGroupSize" class="blank narrow check-input" inputmode="numeric" maxlength="1" data-answer="4" aria-label="한 묶음의 배구공 수 4" />
+        </div>
+        <div class="feedback-area" aria-live="polite">
+          <span id="divisionFeedback" class="feedback">맞음</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">36÷4의 몫을 구할 수 있는 곱셈식을 써 보세요.</div>
+        <div class="relation-board" aria-label="곱셈식의 빈칸과 나눗셈의 몫 연결하기">
+          <div class="relation-equation" aria-label="나눗셈식의 몫 입력">
+            <span class="prefix">36 ÷ 4 →</span>
+            <input id="divisionQuotient" class="blank linked-blank sync-quotient check-input" inputmode="numeric" maxlength="2" data-answer="9" aria-label="36 나누기 4의 몫 9" />
+            <span class="suffix"></span>
+          </div>
+
+          <div class="connector-row" aria-hidden="true">
+            <div class="arrow-up">
+              <span class="arrow-head"></span>
+              <span class="arrow-line"></span>
+            </div>
+          </div>
+
+          <div class="relation-equation" aria-label="곱셈식 입력">
+            <span class="prefix">
+              <input id="multiplicationFactor" class="blank narrow check-input" inputmode="numeric" maxlength="1" data-answer="4" aria-label="한 묶음의 배구공 수 4" />
+              <span>×</span>
+            </span>
+            <input id="multiplicationQuotient" class="blank linked-blank sync-quotient check-input" inputmode="numeric" maxlength="2" data-answer="9" aria-label="묶음 수 9" />
+            <span class="suffix">
+              <span>=</span>
+              <input id="multiplicationProduct" class="blank wide check-input" inputmode="numeric" maxlength="2" data-answer="36" aria-label="전체 배구공 수 36" />
+            </span>
+          </div>
+        </div>
+        <div class="feedback-area" aria-live="polite">
+          <span id="multiplicationFeedback" class="feedback">맞음</span>
+        </div>
+        <div class="relation-caption">곱셈식의 빈칸은 나눗셈식의 몫으로 나타낼 수 있습니다.</div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">답을 써 보세요.</div>
+        <div class="answer-line" aria-label="최종 답 입력">
+          <span>답:</span>
+          <input class="blank" inputmode="numeric" maxlength="2" aria-label="묶음 수" />
+          <span class="unit">묶음</span>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const syncedInputs = document.querySelectorAll('.sync-quotient');
+    const allInputs = document.querySelectorAll('input[inputmode="numeric"]');
+
+    function cleanNumber(input) {
+      const max = Number(input.getAttribute('maxlength')) || 2;
+      input.value = input.value.replace(/[^0-9]/g, '').slice(0, max);
+    }
+
+    function setCorrectState(input) {
+      const answer = input.dataset.answer;
+      if (!answer) return;
+      input.classList.toggle('correct', input.value === answer);
+    }
+
+    function updateDivisionFeedback() {
+      const total = document.getElementById('divisionTotal');
+      const groupSize = document.getElementById('divisionGroupSize');
+      const feedback = document.getElementById('divisionFeedback');
+      const isCorrect = total.value === '36' && groupSize.value === '4';
+      feedback.classList.toggle('show', isCorrect);
+    }
+
+    function updateMultiplicationFeedback() {
+      const factor = document.getElementById('multiplicationFactor');
+      const quotientTop = document.getElementById('divisionQuotient');
+      const quotientBottom = document.getElementById('multiplicationQuotient');
+      const product = document.getElementById('multiplicationProduct');
+      const feedback = document.getElementById('multiplicationFeedback');
+      const isCorrect =
+        factor.value === '4' &&
+        quotientTop.value === '9' &&
+        quotientBottom.value === '9' &&
+        product.value === '36';
+      feedback.classList.toggle('show', isCorrect);
+    }
+
+    function updateAllFeedback() {
+      allInputs.forEach(setCorrectState);
+      updateDivisionFeedback();
+      updateMultiplicationFeedback();
+    }
+
+    allInputs.forEach((input) => {
+      input.addEventListener('input', (event) => {
+        cleanNumber(event.target);
+
+        if (event.target.classList.contains('sync-quotient')) {
+          syncedInputs.forEach((other) => {
+            other.value = event.target.value;
+          });
+        }
+
+        updateAllFeedback();
+      });
+    });
+  </script>
+</body>
+</html>
